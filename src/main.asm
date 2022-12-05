@@ -31,17 +31,14 @@ main:
 	mov [running],cl
 
 	push 0x00000000
-	push 0
-	push 0
-	call draw_pixel
-	push 0x00000000
-	push 1
-	push 1
-	call draw_pixel
-	push 0x00000000
 	push 2
 	push 2
 	call draw_pixel
+
+	push test_image
+	push 20
+	push 20
+	call draw_sprite
 
 	sub rsp,32
 	mov rcx,[window]
@@ -64,12 +61,14 @@ main:
 ;;= Function Includes
 %include "src/engine/sdl/init_sdl.asm"
 %include "src/engine/screen/draw_pixel.asm"
+%include "src/engine/screen/draw_sprite.asm"
 
 
 ;;= Variables
 WindowWidth       EQU 1080
 WindowHeight      EQU  720
 WindowName      : db "Gnosis",0
+%include "src/engine/screen/testimage.asm"
 
 section .bss
 ;; TODO: move

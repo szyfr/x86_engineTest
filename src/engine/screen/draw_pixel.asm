@@ -6,6 +6,8 @@
 ;;=  Input: x16=x
 ;;=         x24=y
 ;;=         x32=color
+;;=  Destr: rax,rcx,rdx
+;;=         r9,r10,r11,r12
 ;;=  Size: 138b
 draw_pixel:
 	pop r12
