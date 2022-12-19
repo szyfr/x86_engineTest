@@ -25,7 +25,7 @@ init_sdl:
 	mov [surface],rax
 
 	; SDL_MapRGB
-	ocSDLMapRGB [rax+8],0xFF,0xFF,0xFF
+	ocSDLMapRGB [rax+8],0x00,0x00,0x00
 	
 	; SDL_FillRect
 	ocSDLFillRect [surface],0,rax

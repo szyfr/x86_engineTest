@@ -7,4 +7,4 @@ call ./build.bat
 
 Start remedybg target/debug/%date%/gnosis.exe
 
-Start code ./
+code ./

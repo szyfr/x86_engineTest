@@ -25,7 +25,7 @@ draw_sprite:
 
 	xor rdx,rdx
 	mov rax,rbx
-	mov rcx,8
+	mov rcx,32
 	div rcx
 	push rdx
 	push rax
@@ -34,7 +34,7 @@ draw_sprite:
 
 	inc rbx
 
-	cmp rbx,64
+	cmp rbx,1024 ;1024
 	jne .loop
 
 	

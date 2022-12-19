@@ -1,6 +1,6 @@
 
 
-;;= SDL_Init
+;;= ExitProcess
 extern ExitProcess
 
 %macro ocExitProcess 1
