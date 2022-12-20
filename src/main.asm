@@ -21,9 +21,8 @@ main:
 	mov byte[running],1
 
 	; Compression testing
-;	push test_image_2
 	mov r13,test_image_2
-	call uncompress_image
+	call decompress_image
 
 .loop:
 	; SDL_PollEvent
@@ -73,7 +72,7 @@ main:
 %include "src/engine/sdl/init_sdl.asm"
 %include "src/engine/screen/draw_pixel.asm"
 %include "src/engine/screen/draw_sprite.asm"
-%include "src/engine/compression/uncompress_image.asm"
+%include "src/engine/compression/decompress_image.asm"
 
 
 ;;= Variables

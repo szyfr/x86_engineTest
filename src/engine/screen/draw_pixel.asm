@@ -34,22 +34,22 @@ draw_pixel:
 	pop rdx
 
 	; Set pixel
-	mov dword[rcx],edx
-	mov dword[rcx+4],edx
-	mov dword[rcx+8],edx
-;	mov dword[rcx+12],edx
-	mov dword[rcx+(WindowWidth*4)],edx
+;	mov dword[rcx],edx
+;	mov dword[rcx+4],edx
+;	mov dword[rcx+8],edx
+;	mov dword[rcx+12],edx ; 
+;	mov dword[rcx+(WindowWidth*4)],edx
 	mov dword[rcx+(WindowWidth*4)+4],edx
 	mov dword[rcx+(WindowWidth*4)+8],edx
-;	mov dword[rcx+(WindowWidth*4)+12],edx
-	mov dword[rcx+(WindowWidth*8)],edx
+	mov dword[rcx+(WindowWidth*4)+12],edx ; 
+;	mov dword[rcx+(WindowWidth*8)],edx
 	mov dword[rcx+(WindowWidth*8)+4],edx
 	mov dword[rcx+(WindowWidth*8)+8],edx
-;	mov dword[rcx+(WindowWidth*8)+12],edx
-;	mov dword[rcx+(WindowWidth*12)],edx
-;	mov dword[rcx+(WindowWidth*12)+4],edx
-;	mov dword[rcx+(WindowWidth*12)+8],edx
-;	mov dword[rcx+(WindowWidth*12)+12],edx
+	mov dword[rcx+(WindowWidth*8)+12],edx ; 
+;	mov dword[rcx+(WindowWidth*12)],edx ; 
+	mov dword[rcx+(WindowWidth*12)+4],edx ; 
+	mov dword[rcx+(WindowWidth*12)+8],edx ; 
+	mov dword[rcx+(WindowWidth*12)+12],edx ; 
 
 	push r12
 	ret

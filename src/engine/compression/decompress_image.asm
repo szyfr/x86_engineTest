@@ -1,23 +1,25 @@
 
 
 
-;;== uncompress_image
-;;=   Uncompresses an image file
+;;== decompress_image
+;;=   Decompresses an image file
 ;;=  Input: r13=data
-;;=  Size: b
-uncompress_image:
+;;=  Size: 175b
+;; TODO Re-write this to be clearer, make better use of registers, have output location for malloc'd data.
+decompress_image:
 	push rbp
 	mov rbp,rsp
 
 
 	;; Calculate space reqs
 	xor rax,rax
-	mov cl,[r13+0]
 	mov al,[r13+1]
-	mul cl
+	mul byte[r13+0]
 	;; malloc space
-	mov [test_comp_len],eax
-	ocmalloc eax
+	mov [test_comp_len],rax
+	mov rcx,4
+	mul rcx
+	ocmalloc rax
 	mov [test_comp],rax
 	
 
@@ -53,7 +55,7 @@ uncompress_image:
 	;;; - r14 : colorsptr
 	;;; - r15 : outputptr
 	xor rbx,rbx
-	mov r9d,[test_comp_len]
+	mov r9,[test_comp_len]
 	mov r12,4
 	mov r13,r14
 	add r13,r15
@@ -62,17 +64,17 @@ uncompress_image:
 	xor rax,rax
 	mov al,[r13+rbx]
 	mul r12
-	mov eax,[r14+rax]
-	mov r8d,eax
+	mov ecx,[r14+rax]
 	mov rax,rbx
 	mul r12
-	mov dword[r15+rax],r8d
+	mov [r15+rax],ecx
 
 	inc rbx
-	cmp ebx,r9d
-	jne .loop_copy
+	cmp rbx,r9
+	jb .loop_copy
 
 
+	push r10
 	mov rsp,rbp
 	pop rbp
 	ret
