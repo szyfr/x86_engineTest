@@ -17,6 +17,7 @@ draw_sprite:
 	push r12
 
 	mov rbx,0
+	add r15,2
 .loop:
 	xor rcx,rcx
 	mov ecx,[r15]
@@ -39,12 +40,3 @@ draw_sprite:
 
 	
 	ret
-
-
-;/*
-;	draw_sprite(x,y : int, data : void*) {
-;		For i:=0;i<64;i+=1 {
-;			draw_pixel(i%8, i/8, data[i])
-;		}
-;	}
-;*/
