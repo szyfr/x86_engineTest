@@ -20,8 +20,11 @@ main:
 	; Set running = true
 	mov byte[running],1
 
+;	mov rcx,test_image_compressed_old
+;	call test_count
+
 	; Compression testing
-	mov rcx,test_image_compressed
+	mov rcx,test_image_compressed_old
 	call decompress
 	mov rcx,rax
 
