@@ -1,6 +1,7 @@
 
 
 ;;= Structure Includes
+%include "src/macros/general.asm"
 %include "src/macros/oc_sdl2.asm"
 %include "src/macros/oc_kernel32.asm"
 %include "src/macros/oc_mscrt.asm"
@@ -33,7 +34,6 @@ main:
 	mov [test_comp],rax
 
 .loop:
-	; SDL_PollEvent
 	ocSDLPollEvent event
 
 	mov rdx,0
@@ -78,6 +78,7 @@ main:
 
 ;;= Function Includes
 %include "src/engine/sdl/init_sdl.asm"
+%include "src/engine/screen/init_camera.asm"
 %include "src/engine/screen/draw_pixel.asm"
 %include "src/engine/screen/draw_sprite.asm"
 %include "src/engine/compression/decompress.asm"
@@ -95,6 +96,8 @@ section .bss
 ;; TODO: move
 window    : resq 1
 surface   : resq 1
+
+camera_data : resq 1
 
 test_comp : resq 1
 test_comp_len : resq 1

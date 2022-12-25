@@ -1,22 +1,21 @@
 
 
+
 ;;= malloc
 extern malloc
-
-%macro ocmalloc 1
-;	sub rsp,32
+%macro ocmalloc 2
 	mov rcx,%1
 	call malloc
-;	add rsp,32
+	mov %2,rax
 %endmacro
+
 
 
 ;;= free
 extern free
-
 %macro ocfree 1
-;	sub rsp,32
 	mov rcx,%1
+	sub rsp,32
 	call free
-;	add rsp,32
+	add rsp,32
 %endmacro

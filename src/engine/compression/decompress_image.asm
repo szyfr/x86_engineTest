@@ -7,8 +7,7 @@
 ;;=  Output: rax=image
 ;;=  Size:   150b
 decompress_image:
-	push rbp
-	mov rbp,rsp
+	prepare
 	
 	;; Calculate size
 	xor rax,rax
@@ -19,10 +18,7 @@ decompress_image:
 	imul rax,4
 	add rax,2
 
-	;; Malloc space
-	mov rcx,rax
-	call malloc
-	mov r14,rax
+	ocmalloc rax,r14
 
 	;; Copy width and height to first spaces of memory
 	mov rcx,[r15+0]
@@ -51,14 +47,11 @@ decompress_image:
 	;; Free old data
 	mov rcx,r15
 	sub rcx,2
-	sub rsp,32
-	call free
-	add rsp,32
+	ocfree rcx
 
 	;; Return memory location
 	sub r14,2
 	mov rax,r14
 	
-	mov rsp,rbp
-	pop rbp
+	release
 	ret
