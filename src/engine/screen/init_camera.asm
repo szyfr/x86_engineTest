@@ -1,15 +1,6 @@
 
 
 
-;; TODO move
-camera_data_SIZE		equ 16
-camera_data_CAMX		equ 0
-	camera_data_CAMX_BASE	equ 0
-camera_data_CAMY		equ 8
-	camera_data_CAMY_BASE	equ 0
-%define param(a,b) ((a)+(b))
-
-
 ;;== init_camera
 ;;=   Initializes the camera system
 ;;=  Input: =
@@ -20,10 +11,13 @@ init_camera:
 
 	ocmalloc camera_data_SIZE,[camera_data]
 
-	mov qword[rax+camera_data_CAMX],camera_data_CAMX_BASE
-	mov qword[rax+camera_data_CAMY],camera_data_CAMY_BASE
+	mov qword[rax+camera_data_CAM_X],camera_data_CAM_X_BASE
+	mov qword[rax+camera_data_CAM_Y],camera_data_CAM_Y_BASE
+	mov dword[rax+camera_data_CAM_WIDTH], 1920
+	mov dword[rax+camera_data_CAM_HEIGHT],1080
 
-	;; TODO Camera stuff
+	mov dword[rax+camera_data_SPRITE_ARRAY],0
+	mov dword[rax+camera_data_SPRITE_ARRAY_LEN],0
 
 	release
 	ret

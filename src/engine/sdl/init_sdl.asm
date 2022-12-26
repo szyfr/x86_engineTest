@@ -6,8 +6,7 @@
 ;;=  Input: NONE
 ;;=  Size:  205b
 init_sdl:
-	push rbp
-	mov rbp,rsp
+	prepare
 
 	; SDL_Init
 	ocSDLInit SDL_INIT_VIDEO
@@ -33,6 +32,5 @@ init_sdl:
 	; SDL_UpdateWindowSurface
 	ocSDLUpdateWindowSurface [window]
 
-	mov rsp,rbp
-	pop rbp
+	release
 	ret

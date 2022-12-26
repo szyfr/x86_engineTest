@@ -1,5 +1,6 @@
 
 
+
 ;;= Prepare stack
 %macro prepare 0
 	push rbp

@@ -21,15 +21,13 @@ main:
 	; Set running = true
 	mov byte[running],1
 
-;	mov rcx,test_image_compressed_old
-;	call test_count
+	call init_camera
+	call resize_window_sdl
 
 	; Compression testing
 	mov rcx,test_image_compressed_old
 	call decompress
 	mov rcx,rax
-
-;	mov rcx,test_image_1
 	call decompress_image
 	mov [test_comp],rax
 
@@ -43,23 +41,11 @@ main:
 	cmove ecx,edx
 	mov [running],cl
 
-;	push 0x00000000
-;	push 2
-;	push 2
-;	call draw_pixel
-
 	mov rcx,[test_comp]
 	push rcx
-;	push test_comp
-;	push test_image
 	push 20
 	push 20
 	call draw_sprite
-
-;	push test_image
-;	push 40
-;	push 40
-;	call draw_sprite
 
 	sub rsp,32
 	mov rcx,[window]
@@ -77,19 +63,13 @@ main:
 
 
 ;;= Function Includes
-%include "src/engine/sdl/init_sdl.asm"
-%include "src/engine/screen/init_camera.asm"
-%include "src/engine/screen/draw_pixel.asm"
-%include "src/engine/screen/draw_sprite.asm"
-%include "src/engine/compression/decompress.asm"
-%include "src/engine/compression/decompress_image.asm"
+%include "src/engine/functions.asm"
 
 
 ;;= Variables
 WindowWidth       EQU 1080
 WindowHeight      EQU  720
-WindowName      : db "Gnosis",0
-number_four     : db 4
+WindowName : db "Gnosis",0
 %include "src/engine/screen/testimage.asm"
 
 section .bss
@@ -97,7 +77,7 @@ section .bss
 window    : resq 1
 surface   : resq 1
 
-camera_data : resq 1
+%include "src/engine/variables.asm"
 
 test_comp : resq 1
 test_comp_len : resq 1

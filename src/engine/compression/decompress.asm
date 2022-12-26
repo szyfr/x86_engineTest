@@ -7,16 +7,12 @@
 ;;=  Output: rax=file
 ;;=  Size:   87b
 decompress:
-	push rbp
-	mov rbp,rsp
-	
+	prepare
 
 	;; malloc
 	mov r15,rcx
-	mov rcx,[r15] ;
-	call malloc   ; malloc
-	mov r14,rax   ;
-	mov r12,rax   ;
+	ocmalloc [r15],r14
+	mov r12,rax
 	mov r13,[r15]
 	add r15,8
 
@@ -45,7 +41,5 @@ decompress:
 	;; Return pointer
 	mov rax,r14
 
-
-	mov rsp,rbp
-	pop rbp
+	release
 	ret

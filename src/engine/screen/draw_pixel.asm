@@ -24,6 +24,7 @@ draw_pixel:
 	mul r10
 	add rax,r11
 	mov r9,rax
+;	mov r9,rax
 
 	; Get array member
 	mov rdx,[surface]
