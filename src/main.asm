@@ -26,10 +26,7 @@ main:
 
 	; Compression testing
 	mov rcx,test_tile
-;	mov rcx,test_image_compressed
 	call decompress
-;	mov rcx,rax
-;	call decompress_image
 	mov [test_comp],rax
 
 .loop:
@@ -43,18 +40,10 @@ main:
 	mov [running],cl
 
 	; Draw
-	mov rcx,0x0
-	mov rdx,0x0
-	mov r8,[test_comp]
 	call draw_sprite
 	mov rcx,0x10
 	mov rdx,0x10
 	mov r8,[test_comp]
-	call draw_sprite
-	mov rcx,0x20
-	mov rdx,0x10
-	mov r8,[test_comp]
-	call draw_sprite
 
 	sub rsp,32
 	mov rcx,[window]
@@ -76,18 +65,12 @@ main:
 
 ;;= Data Includes
 test_tile: incbin "data/testTile.bin"
+palette:   incbin "data/palette.bin"
 
 ;;= Variables
-WindowWidth       EQU 1080
-WindowHeight      EQU  720
 WindowName : db "Gnosis",0
-%include "src/engine/screen/testimage.asm"
 
 section .bss
-;; TODO: move
-window    : resq 1
-surface   : resq 1
-
 %include "src/engine/variables.asm"
 
 
@@ -95,6 +78,5 @@ test_comp : resq 1
 test_comp_len : resq 1
 test_comp_col : resb 40
 
-event     : resb 0x67
 running   : resb 1
 

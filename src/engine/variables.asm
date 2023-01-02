@@ -1,6 +1,12 @@
 
 
 
+;;= SDL2 data
+window    : resq 1
+surface   : resq 1
+event     : resb 0x67
+
+
 ;;= Camera data
 camera_data : resq 1
 
