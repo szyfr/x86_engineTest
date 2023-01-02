@@ -3,54 +3,59 @@
 
 ;;== draw_pixel
 ;;=   Draw a pixel on the 270x180 screen
-;;=  Input: x16=x
-;;=         x24=y
-;;=         x32=color
-;;=  Destr: rax,rcx,rdx
-;;=         r9,r10,r11,r12
-;;=  Size: 138b
+;;=  Input: rcx=x
+;;=         rdx=y
+;;=         r8b=color
+;;=  Destr: rax,rcx,rdx,r8,r9,r10
+;;=  Size:  136b
 draw_pixel:
-	pop r12
+	prepare
 
-	; Calculate position in array
-	; r9 = (x*16) + width(y*16)
-	mov r10,16
-	mov rcx,WindowWidth  ; TODO Options
-	pop rax
-	mul rcx
-	mul r10
-	mov r11,rax
-	pop rax
-	mul r10
-	add rax,r11
-	mov r9,rax
-;	mov r9,rax
+	; Calculate position
+	; position = (x*scale) + screenwidth(y*scale)
+	mov r9,[camera_data]
+	imul ecx,[r9+camera_data_SCALE]
+	imul edx,[r9+camera_data_SCALE]
+	imul edx,[r9+camera_data_CAM_WIDTH]
+	add rcx,rdx
 
-	; Get array member
+	; Get position in array
 	mov rdx,[surface]
 	add rdx,32
-	mov rcx,[rdx]
-	add rcx,r9
+	mov rdx,[rdx]
+	add rdx,rcx
 
-	pop rdx
+	; Get color
+	mov rcx,palette
+	imul r8,4
+	add rcx,r8
+	mov ecx,[rcx]
 
-	; Set pixel
-;	mov dword[rcx],edx
-;	mov dword[rcx+4],edx
-;	mov dword[rcx+8],edx
-;	mov dword[rcx+12],edx ; 
-;	mov dword[rcx+(WindowWidth*4)],edx
-	mov dword[rcx+(WindowWidth*4)+4],edx
-	mov dword[rcx+(WindowWidth*4)+8],edx
-	mov dword[rcx+(WindowWidth*4)+12],edx ; 
-;	mov dword[rcx+(WindowWidth*8)],edx
-	mov dword[rcx+(WindowWidth*8)+4],edx
-	mov dword[rcx+(WindowWidth*8)+8],edx
-	mov dword[rcx+(WindowWidth*8)+12],edx ; 
-;	mov dword[rcx+(WindowWidth*12)],edx ; 
-	mov dword[rcx+(WindowWidth*12)+4],edx ; 
-	mov dword[rcx+(WindowWidth*12)+8],edx ; 
-	mov dword[rcx+(WindowWidth*12)+12],edx ; 
+	; Get multiplier
+	xor r10,r10
+	mov r10d,[r9+camera_data_CAM_WIDTH]
+	imul r10,4
 
-	push r12
+	; Paint surface
+	mov dword[rdx+00],ecx
+	mov dword[rdx+04],ecx
+	mov dword[rdx+08],ecx
+	mov dword[rdx+12],ecx
+	add rdx,r10
+	mov dword[rdx+00],ecx
+	mov dword[rdx+04],ecx
+	mov dword[rdx+08],ecx
+	mov dword[rdx+12],ecx
+	add rdx,r10
+	mov dword[rdx+00],ecx
+	mov dword[rdx+04],ecx
+	mov dword[rdx+08],ecx
+	mov dword[rdx+12],ecx
+	add rdx,r10
+	mov dword[rdx+00],ecx
+	mov dword[rdx+04],ecx
+	mov dword[rdx+08],ecx
+	mov dword[rdx+12],ecx
+
+	release
 	ret

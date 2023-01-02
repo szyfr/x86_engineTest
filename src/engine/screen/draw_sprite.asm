@@ -3,40 +3,51 @@
 
 ;;== draw_sprite
 ;;=   Draw a 8x8 sprite on the 270x180 screen
-;;=  Input: x16=x
-;;=         x24=y
-;;=         x32=data
-;;=  Size: b
+;;=  Input: rcx=x
+;;=         rdx=y
+;;=         r8 =data
+;;=  Destr: rax,rcx,rdx,r11,r12,r13,14,15
+;;=  Size: 94b
 draw_sprite:
-	pop r12
+	prepare
 
-	pop r13 ; x
-	pop r14 ; y
-	pop r15 ; data
+	; Save variables
+	mov r11,rcx
+	mov r12,rdx
+	mov r13,r8
+	xor r14,r14
+	mov r14b,[r13]
 
-	push r12
+	; Calculate size
+	xor rax,rax
+	xor r15,r15
+	mov al,[r13]
+	inc r13
+	mov r15b,[r13]
+	imul r15,rax
 
-	mov rbx,0
-	add r15,2
+	inc r13
+
+	xor rbx,rbx
 .loop:
-	xor rcx,rcx
-	mov ecx,[r15]
-	push rcx
-	add r15,4
-
+	; Grab color
+	xor r8,r8
+	mov r8b,[r13+rbx]
+	; Calculate position
+	; x = x + count/8
+	; y = y + count%8
 	xor rdx,rdx
 	mov rax,rbx
-	mov rcx,32
-	div rcx
-	push rdx
-	push rax
-
+	div r14
+	mov rcx,rdx
+	add rcx,r11
+	mov rdx,rax
+	add rdx,r12
 	call draw_pixel
 
 	inc rbx
+	cmp rbx,r15
+	jb .loop
 
-	cmp rbx,1024 ;1024
-	jne .loop
-
-	
+	release
 	ret

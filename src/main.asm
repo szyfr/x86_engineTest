@@ -25,10 +25,11 @@ main:
 	call resize_window_sdl
 
 	; Compression testing
-	mov rcx,test_image_compressed_old
+	mov rcx,test_tile
+;	mov rcx,test_image_compressed
 	call decompress
-	mov rcx,rax
-	call decompress_image
+;	mov rcx,rax
+;	call decompress_image
 	mov [test_comp],rax
 
 .loop:
@@ -41,10 +42,18 @@ main:
 	cmove ecx,edx
 	mov [running],cl
 
-	mov rcx,[test_comp]
-	push rcx
-	push 20
-	push 20
+	; Draw
+	mov rcx,0x0
+	mov rdx,0x0
+	mov r8,[test_comp]
+	call draw_sprite
+	mov rcx,0x10
+	mov rdx,0x10
+	mov r8,[test_comp]
+	call draw_sprite
+	mov rcx,0x20
+	mov rdx,0x10
+	mov r8,[test_comp]
 	call draw_sprite
 
 	sub rsp,32
@@ -65,6 +74,8 @@ main:
 ;;= Function Includes
 %include "src/engine/functions.asm"
 
+;;= Data Includes
+test_tile: incbin "data/testTile.bin"
 
 ;;= Variables
 WindowWidth       EQU 1080
@@ -78,6 +89,7 @@ window    : resq 1
 surface   : resq 1
 
 %include "src/engine/variables.asm"
+
 
 test_comp : resq 1
 test_comp_len : resq 1

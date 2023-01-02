@@ -17,12 +17,12 @@ SDL_WINDOWPOS_UNDEFINED EQU 0x1FFF0000
 SDL_WINDOW_SHOWN        EQU 0x00000004
 %macro ocSDLCreateWindow 3
 	sub rsp,96
-	mov rcx,%1           ; windowname
-	mov edx,%2           ; ?
-	mov r8d,%2           ; ?
-	mov r9d,0            ; windowWidth
-	mov dword[rsp+32],0  ; windowHeight
-	mov dword[rsp+40],%3 ; ?
+	mov rcx,%1            ; windowname
+	mov edx,%2            ; ?
+	mov r8d,%2            ; ?
+	mov r9d,1280          ; windowWidth
+	mov dword[rsp+32],720 ; windowHeight
+	mov dword[rsp+40],%3  ; ?
 	call SDL_CreateWindow
 	add rsp,96
 %endmacro
