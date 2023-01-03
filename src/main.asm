@@ -14,7 +14,8 @@ section .text
 
 ;;= Main
 main:
-	sub rsp,8
+	;sub rsp,8
+	push rbp
 
 	call init_sdl
 	
@@ -25,9 +26,10 @@ main:
 	call resize_window_sdl
 
 	; Compression testing
-	mov rcx,test_tile
+	mov rcx,blank_tile
 	call decompress
 	mov [test_comp],rax
+;	call init_graphics
 
 .loop:
 	ocSDLPollEvent event
@@ -40,10 +42,12 @@ main:
 	mov [running],cl
 
 	; Draw
-	call draw_sprite
 	mov rcx,0x10
 	mov rdx,0x10
 	mov r8,[test_comp]
+;	mov r8,[graphics_data]
+;	mov r8,[r8+graphics_data_TILEARRAY]
+	call draw_sprite
 
 	sub rsp,32
 	mov rcx,[window]
@@ -64,8 +68,9 @@ main:
 %include "src/engine/functions.asm"
 
 ;;= Data Includes
-test_tile: incbin "data/testTile.bin"
-palette:   incbin "data/palette.bin"
+test_tile:	incbin "data/testTile.bin"
+blank_tile:	incbin "data/blankTile.bin"
+palette:	incbin "data/palette.bin"
 
 ;;= Variables
 WindowName : db "Gnosis",0

@@ -25,14 +25,26 @@ camera_data_CAM_WIDTH_BASE		equ 1280
 camera_data_CAM_HEIGHT_BASE		equ 720
 camera_data_SCALE_BASE			equ 16
 
+;;= Graphics System data
+graphics_data : resq 1
+
+graphics_data_TILEARRAY		equ 0x00
+graphics_data_TILEARRAY_LEN	equ 0x08
+graphics_data_MAPARRAY		equ 0x10
+graphics_data_MAPARRAY_LEN	equ 0x18
+graphics_data_SIZE			equ 0x20
+
+NUM_TILES equ 8 * 1
 
 ;;= Sprite data
-sprite_POS_X 	equ 0  ; u4
-sprite_POS_Y 	equ 4  ; u4
-sprite_SIZE_X	equ 8  ; i8
-sprite_SIZE_Y	equ 16 ; i8
-sprite_DATA  	equ 24 ; &8
-sprite_SIZE  	equ 0x20
+sprite_POS_X 	equ 0x00 ; u32
+sprite_POS_Y 	equ 0x04 ; u32
+sprite_SIZE_X	equ 0x08 ; i64
+sprite_SIZE_Y	equ 0x10 ; i64
+sprite_DATA_LOW	equ 0x18 ; &64
+sprite_DATA_MID	equ 0x20 ; &64
+sprite_DATA_HIG	equ 0x28 ; &64
+sprite_SIZE  	equ 0x30
 
 ;;= Options data
 
