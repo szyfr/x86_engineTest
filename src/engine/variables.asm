@@ -29,9 +29,9 @@ camera_data_SCALE_BASE			equ 16
 graphics_data : resq 1
 
 graphics_data_TILEARRAY		equ 0x00
-graphics_data_TILEARRAY_LEN	equ 0x08
-graphics_data_MAPARRAY		equ 0x10
-graphics_data_MAPARRAY_LEN	equ 0x18
+graphics_data_MAPARRAY		equ 0x08
+graphics_data_MAPARRAY_LEN	equ 0x10
+graphics_data_BLANKTILE     equ 0x18
 graphics_data_SIZE			equ 0x20
 
 NUM_TILES equ 8 * 1

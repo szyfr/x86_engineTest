@@ -1,14 +1,14 @@
 
 
 
-;;== draw_sprite
-;;=   Draw a 8x8 sprite on the 270x180 screen
+;;== draw_simple_sprite
+;;=   Draw a simple sprite on the 270x180 screen
 ;;=  Input: rcx=x
 ;;=         rdx=y
 ;;=         r8 =data
 ;;=  Destr: rax,rcx,rdx,r11,r12,r13,14,15
 ;;=  Size: 94b
-draw_sprite:
+draw_simple_sprite:
 	prepare
 
 	; Save variables

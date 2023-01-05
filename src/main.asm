@@ -14,22 +14,28 @@ section .text
 
 ;;= Main
 main:
-	;sub rsp,8
-	push rbp
+	sub rsp,8
 
 	call init_sdl
-	
+	call init_camera
+	call init_graphics
+	call resize_window_sdl
+
 	; Set running = true
 	mov byte[running],1
 
-	call init_camera
-	call resize_window_sdl
-
 	; Compression testing
-	mov rcx,blank_tile
-	call decompress
-	mov [test_comp],rax
+;	mov rcx,blank_tile
+;	call decompress
+;	mov [test_comp],rax
 ;	call init_graphics
+	xor rcx,rcx
+	xor rdx,rdx
+	xor r8,r8
+	call create_sprite
+	mov rcx,[graphics_data]
+	mov rcx,[rcx+graphics_data_TILEARRAY]
+	mov [rcx],rax
 
 .loop:
 	ocSDLPollEvent event
@@ -47,7 +53,7 @@ main:
 	mov r8,[test_comp]
 ;	mov r8,[graphics_data]
 ;	mov r8,[r8+graphics_data_TILEARRAY]
-	call draw_sprite
+;	call draw_sprite
 
 	sub rsp,32
 	mov rcx,[window]
@@ -73,7 +79,7 @@ blank_tile:	incbin "data/blankTile.bin"
 palette:	incbin "data/palette.bin"
 
 ;;= Variables
-WindowName : db "Gnosis",0
+WindowName : db "Hecate",0
 
 section .bss
 %include "src/engine/variables.asm"

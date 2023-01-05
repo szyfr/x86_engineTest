@@ -5,7 +5,9 @@
 extern malloc
 %macro ocmalloc 2
 	mov rcx,%1
+	sub rsp,8
 	call malloc
+	add rsp,8
 	mov %2,rax
 %endmacro
 
